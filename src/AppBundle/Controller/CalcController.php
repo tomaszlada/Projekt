@@ -23,34 +23,26 @@ class CalcController extends Controller {
      * })
      */
     public function calcAction($var1, $func, $var2) {
-
-        $calc = new CalcEntity();
-        $calc->setVar1($var1);
-        $calc->setFunc($func);
-        $calc->setVar2($var2);
-
-
-        switch ($func) {
+        
+        $calc = new CalcActionController($var1, $func, $var2);
+        
+          switch ($func) {
             case '+':
-                $calc->setResult($var1 + $var2);
+                $calc->addAction();
                 break;
             case '-':
-                $calc->setResult($var1 - $var2);
+                $calc->subtractAction();
                 break;
             case '*':
-                $calc->setResult($var1 * $var2);
+                $calc->multiplyAction();
                 break;
             case ':' || '/':
-                if ($var2 == 0) {
-                    $calc->setResult("nie mo�na dzieli� przez ZERO");
-                } else {
-                    $calc->setResult($var1 / $var2);
-                }
+                $calc->divideAction();
                 break;
             default:
-                $calc->setResult("Dzia�anie nie jest wspierane");
+                $calc->setResult("Działanie nie jest wspierane");
         }
-
+        
         return $this->render('calc/index.html.twig', [
                     'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
                     'calc' => $calc,
