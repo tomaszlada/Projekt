@@ -35,5 +35,9 @@ class CalcActionController extends CalcEntity {
             return $this->setResult($this->getVar1() / $this->getVar2());
         }
     }
-
+    
+    public function roundAction(){
+        return $this->setResult(round($this->getResult(), 0, PHP_ROUND_HALF_UP));
+    }
+    
 }

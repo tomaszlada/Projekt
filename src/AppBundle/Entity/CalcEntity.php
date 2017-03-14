@@ -13,19 +13,18 @@ class CalcEntity {
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Type("integer")
      */
-    private $var1 = 0;
-
-    /**
-     * @Assert\NotBlank()
-     */
+    private $var1;
     private $func;
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Type("integer")
      */
-    private $var2 = 0;
-    private $result = 0;
+    private $var2;
+    private $result;
+    private $round;
 
     public function __constructor($var1, $var2, $result) {
         $this->var1 = $var1;
@@ -68,7 +67,17 @@ class CalcEntity {
         $this->result = $result;
         return $this;
     }
+
+    function getRound() {
+        return $this->round;
+    }
+
+    function setRound($round) {
+        $this->round = $round;
+    }
+
     public function __toString() {
         return $this->var1 . " " . $this->func . " " . " " . $this->var2 . " = " . $this->result;
     }
+
 }

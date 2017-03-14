@@ -6,6 +6,17 @@
     {{ form_widget(form) }}
     {{ form_end(form) }}
 
+    
+</br>
+    <h2>Historia Kalkulatora</h2>
+{% if history|length > 0 %}
+    <ul>
+        {% for h in history %}
+            <li> Dodano - {{ h.0 }} - <b>{{ h.1 }}</b></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
 </br>
 
 {% endblock %}
