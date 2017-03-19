@@ -52,10 +52,16 @@ class CalcFormController extends Controller {
             //$form->getData();
 
             FileController::saveFile("wyniki.csv", $calc);
+            /*
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($calc);
+            $em->flush();
+             * 
+             */
         }
         
         //$history = FileController::showHistory(FileController::readFile('wyniki.csv'));
-            $history = FileController::readFile('wyniki.csv');
+        $history = FileController::readFile('wyniki.csv');
         return $this->render('calc/indexCalcForm.html.twig', [
                     'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
                     'form' => $form->createView(),
