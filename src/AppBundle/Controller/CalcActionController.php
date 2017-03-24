@@ -8,14 +8,15 @@ use AppBundle\Entity\CalcEntity;
  *
  * @author Tomek
  */
-class CalcActionController extends CalcEntity {
-    
-    public function __construct($var1, $func, $var2) {
-        $this->setVar1($var1);
-        $this->setFunc($func);
-        $this->setVar2($var2);
+class CalcActionController extends CalcEntity{
+      
+  
+    public function __construct() {
     }
     
+    public function __construct1($var1, $func, $var2) {
+           
+    }
     public function addAction() {
         return $this->setResult($this->getVar1() + $this->getVar2());
     }

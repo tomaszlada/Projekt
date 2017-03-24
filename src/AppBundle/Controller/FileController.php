@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\Filesystem\Filesystem;
 use AppBundle\Controller\CalcActionController;
-
+use AppBundle\Entity\CalcEntity;
 /**
  * Description of FileController
  *
@@ -43,7 +43,7 @@ class FileController {
             while (!feof($file)) {
                 $csv[$i] = fgetcsv($file, 0, ';');
                 if ($csv[$i] == null) break;
-                $calc = new \AppBundle\Entity\CalcEntity();
+                $calc = new CalcEntity();
                 $calc->setVar1($csv[$i][1]);
                 $calc->setFunc($csv[$i][2]);
                 $calc->setVar2($csv[$i][3]);

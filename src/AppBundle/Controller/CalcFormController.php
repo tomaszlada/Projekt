@@ -3,11 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Forms\CalcForm;
+use AppBundle\Entity\CalcEntity;
 use AppBundle\Controller\FileController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
 
 /**
  * Description of CalcFormController
@@ -21,10 +21,11 @@ class CalcFormController extends Controller {
      */
     public function indexAction(Request $request) {
 
+
         $calc = new CalcActionController(null, null, null);
         $form = $this->createForm(CalcForm::class, $calc);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
 
 
@@ -50,25 +51,38 @@ class CalcFormController extends Controller {
             }
 
             //$form->getData();
+            
+  
+            $calc->setDate();
+            $c = new CalcEntity($calc->getVar1(), $calc->getFunc(), $calc->getVar2(), $calc->getResult(), $calc->getRound(), $calc->getDate());
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($c);
+            $em->flush();
 
             FileController::saveFile("wyniki.csv", $calc);
-            /*
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($calc);
-            $em->flush();
-             * 
-             */
         }
+
+        $repository = $this->getDoctrine()->getRepository('AppBundle:CalcEntity');
+        $query = $repository->createQueryBuilder('r')
+                ->orderBy('r.result', 'ASC')
+                ->getQuery();
+
+        $calcDB = $query->getResult();
         
-        //$history = FileController::showHistory(FileController::readFile('wyniki.csv'));
+
+
         $history = FileController::readFile('wyniki.csv');
+
+
+
         return $this->render('calc/indexCalcForm.html.twig', [
                     'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
                     'form' => $form->createView(),
                     'history' => $history,
+                    'historyDB' => $calcDB,
         ]);
     }
-    
-
 
 }

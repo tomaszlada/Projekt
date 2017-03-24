@@ -66,10 +66,24 @@ class CalcEntity {
      */
     private $round;
 
-    public function __constructor($var1, $var2, $result) {
+    /**
+     *
+     * @var datetime
+     * @ORM\Column(name="addDate", type="datetime")
+     */
+    private $date;
+    
+    public function __construct() {
+        
+    }  
+
+    public function __construct1($var1, $func, $var2, $result, $round, $date) {
         $this->var1 = $var1;
+        $this->func = $func;
         $this->var2 = $var2;
         $this->result = $result;
+        $this->round = $round;
+        $this->date = $date;
     }
 
     public function getId() {
@@ -123,9 +137,21 @@ class CalcEntity {
     function setRound($round) {
         $this->round = $round;
     }
+    
+    function getDate() {
+        return $this->date;
+    }
 
+    function setDate($date) {
+        if ($date == null){
+            $this->date = new \DateTime("now");
+        } else{
+            $this->date = $date;
+        }
+    }
+    
     public function __toString() {
-        return $this->var1 . " " . $this->func . " " . " " . $this->var2 . " = " . $this->result;
+        return '('.$this->id.') '.$this->var1 . " " . $this->func . " " . " " . $this->var2 . " = " . $this->result;
     }
 
 }
