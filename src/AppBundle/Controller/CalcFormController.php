@@ -8,6 +8,7 @@ use AppBundle\Controller\FileController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Description of CalcFormController
@@ -22,7 +23,7 @@ class CalcFormController extends Controller {
     public function indexAction(Request $request) {
 
 
-        $calc = new CalcActionController(null, null, null);
+        $calc = new CalcActionController();
         $form = $this->createForm(CalcForm::class, $calc);
         $form->handleRequest($request);
 
@@ -51,12 +52,13 @@ class CalcFormController extends Controller {
             }
 
             //$form->getData();
+
+
+            $calc->setDate(null);
+            $c = new CalcEntity($calc->getVar1(), $calc->getFunc(), $calc->getVar2(), 
+                $calc->getResult(), $calc->getRound());
+              //echo $c;
             
-  
-            $calc->setDate();
-            $c = new CalcEntity($calc->getVar1(), $calc->getFunc(), $calc->getVar2(), $calc->getResult(), $calc->getRound(), $calc->getDate());
-
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($c);
             $em->flush();
@@ -71,12 +73,10 @@ class CalcFormController extends Controller {
 
         $calcDB = $query->getResult();
         
-
-
+        
         $history = FileController::readFile('wyniki.csv');
-
-
-
+       
+         
         return $this->render('calc/indexCalcForm.html.twig', [
                     'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
                     'form' => $form->createView(),

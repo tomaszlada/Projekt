@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  *
@@ -15,7 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="calc_result") 
  */
-
 class CalcEntity {
 
     /**
@@ -25,7 +25,7 @@ class CalcEntity {
      * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
-    
+
     /**
      * 
      * @Assert\NotBlank()
@@ -35,7 +35,7 @@ class CalcEntity {
      * @ORM\Column(name="var1", type="integer")
      */
     private $var1;
-    
+
     /**
      *
      * @var string
@@ -52,13 +52,13 @@ class CalcEntity {
      * @ORM\Column(name="var2", type="integer")
      */
     private $var2;
-    
+
     /**
      * @var integer
      * @ORM\Column(name="result")
      */
     private $result;
-    
+
     /**
      *
      * @var bool
@@ -72,18 +72,14 @@ class CalcEntity {
      * @ORM\Column(name="addDate", type="datetime")
      */
     private $date;
-    
-    public function __construct() {
-        
-    }  
 
-    public function __construct1($var1, $func, $var2, $result, $round, $date) {
+    public function __construct($var1, $func, $var2, $result, $round) {
         $this->var1 = $var1;
         $this->func = $func;
         $this->var2 = $var2;
         $this->result = $result;
         $this->round = $round;
-        $this->date = $date;
+        $this->date = new \DateTime("now");
     }
 
     public function getId() {
@@ -93,14 +89,13 @@ class CalcEntity {
     public function setId($id) {
         $this->id = $id;
     }
-    
+
     public function getVar1() {
         return $this->var1;
     }
 
     public function setVar1($var1) {
         $this->var1 = $var1;
-        return $this;
     }
 
     public function getFunc() {
@@ -109,7 +104,6 @@ class CalcEntity {
 
     public function setFunc($func) {
         $this->func = $func;
-        return $this;
     }
 
     public function getVar2() {
@@ -118,7 +112,6 @@ class CalcEntity {
 
     public function setVar2($var2) {
         $this->var2 = $var2;
-        return $this;
     }
 
     public function getResult() {
@@ -127,7 +120,6 @@ class CalcEntity {
 
     public function setResult($result) {
         $this->result = $result;
-        return $this;
     }
 
     function getRound() {
@@ -137,21 +129,26 @@ class CalcEntity {
     function setRound($round) {
         $this->round = $round;
     }
-    
+
     function getDate() {
         return $this->date;
     }
 
     function setDate($date) {
-        if ($date == null){
+        if ($date == NULL) {
             $this->date = new \DateTime("now");
-        } else{
+        } else {
             $this->date = $date;
         }
     }
-    
+
+    public function getDateAsObject() {
+        // should be able to parse this format: Mar 2 2014 12:00:00:000AM
+        return \DateTime::createFromFormat("Y-m-d H:i:s", $this->date);
+    }
+
     public function __toString() {
-        return '('.$this->id.') '.$this->var1 . " " . $this->func . " " . " " . $this->var2 . " = " . $this->result;
+        return $this->var1 . " " . $this->func . " " . " " . $this->var2 . " = " . $this->result;
     }
 
 }
