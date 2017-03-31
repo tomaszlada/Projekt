@@ -7,3 +7,11 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    app.entity.repository_calculate:
+        class: Appbundle\Repository\CalcRepo
+        fatory:
+            - "@doctrine.orm.entity_manager"
+            - getRepository
+        arguments:
+            - AppBundle\Entity\CalcEntity

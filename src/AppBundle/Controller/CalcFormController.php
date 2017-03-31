@@ -58,11 +58,12 @@ class CalcFormController extends Controller {
             $c = new CalcEntity($calc->getVar1(), $calc->getFunc(), $calc->getVar2(), 
                 $calc->getResult(), $calc->getRound());
               //echo $c;
+            $c->save();
             
-            $em = $this->getDoctrine()->getManager();
+           /* $em = $this->getDoctrine()->getManager();
             $em->persist($c);
             $em->flush();
-
+*/
             FileController::saveFile("wyniki.csv", $calc);
         }
 
