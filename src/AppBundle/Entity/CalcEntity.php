@@ -55,7 +55,7 @@ class CalcEntity {
 
     /**
      * @var integer
-     * @ORM\Column(name="result")
+     * @ORM\Column(name="result", type="float")
      */
     private $result;
 
@@ -133,7 +133,19 @@ class CalcEntity {
     function getDate() {
         return $this->date;
     }
+    
+    function getAddDate(){
+         return $this->date;
+    }
 
+    function setAddDate($date) {
+        if ($date == NULL) {
+            $this->date = new \DateTime("now");
+        } else {
+            $this->date = $date;
+        }
+    }
+    
     function setDate($date) {
         if ($date == NULL) {
             $this->date = new \DateTime("now");

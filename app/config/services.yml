@@ -15,3 +15,27 @@ services:
             - getRepository
         arguments:
             - AppBundle\Entity\CalcEntity
+               
+    app.admin.user:
+        class: AppBundle\Admin\Admin
+        arguments: 
+            - ~
+            - AppBundle\Entity\User
+            - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "User" }
+        calls:
+            #- [ setUserManager, ["@fosuser.usermanager"]]
+            - [ setTranslationDomain, [AppBundle]]
+            
+    app.admin.calc:
+        class: AppBundle\Admin\CalcAdmin
+        arguments: 
+            - ~
+            - AppBundle\Entity\CalcEntity
+            - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Calc" }
+        calls:
+            #- [ setUserManager, ["@fosuser.usermanager"]]
+            - [ setTranslationDomain, [AppBundle]]
