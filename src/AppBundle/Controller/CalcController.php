@@ -23,10 +23,14 @@ class CalcController extends Controller {
      * })
      */
     public function calcAction($var1, $func, $var2) {
+
+        $calc = new CalcActionController();
+        $calc->setVar1($var1);
+        $calc->setFunc($func);
+        $calc->setVar2($var2);
+                
         
-        $calc = new CalcActionController($var1, $func, $var2);
-        
-          switch ($func) {
+        switch ($func) {
             case '+':
                 $calc->addAction();
                 break;
@@ -43,9 +47,20 @@ class CalcController extends Controller {
                 $calc->setResult("Działanie nie jest wspierane");
         }
         
+ 
         return $this->render('calc/index.html.twig', [
                     'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
                     'calc' => $calc,
+        ]);
+    }
+
+    /**
+     * @Route("/calc/info/", name="infoAction")
+     */
+    public function infoAction() {
+
+        return $this->render('calc/infoCalc.html.twig', [
+                    'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
         ]);
     }
 

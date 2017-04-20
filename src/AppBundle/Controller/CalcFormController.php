@@ -23,7 +23,7 @@ class CalcFormController extends Controller {
     public function indexAction(Request $request) {
 
 
-        $calc = new CalcActionController();
+        $calc = new CalcActionController(NULL, NULL, NULL);
         $form = $this->createForm(CalcForm::class, $calc);
         $form->handleRequest($request);
 
@@ -31,7 +31,7 @@ class CalcFormController extends Controller {
 
 
             switch ($calc->getFunc()) {
-                case '+':
+                case '+':         
                     $calc->addAction();
                     break;
                 case '-':
@@ -50,26 +50,28 @@ class CalcFormController extends Controller {
             if ($calc->getRound()) {
                 $calc->roundAction();
             }
-
+            
+           
             //$form->getData();
 
-
+            
             $calc->setDate(null);
             $c = new CalcEntity($calc->getVar1(), $calc->getFunc(), $calc->getVar2(), 
                 $calc->getResult(), $calc->getRound());
-              //echo $c;
-            $c->save();
             
-           /* $em = $this->getDoctrine()->getManager();
+              //echo $c;
+            //$c->save();
+            
+            $em = $this->getDoctrine()->getManager();
             $em->persist($c);
             $em->flush();
-*/
+
             FileController::saveFile("wyniki.csv", $calc);
         }
 
         $repository = $this->getDoctrine()->getRepository('AppBundle:CalcEntity');
         $query = $repository->createQueryBuilder('r')
-                ->orderBy('r.result', 'ASC')
+                ->orderBy('r.date', 'ASC')
                 ->getQuery();
 
         $calcDB = $query->getResult();
