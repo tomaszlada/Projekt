@@ -44,7 +44,7 @@ class DefaultController extends Controller
      */
     public function bootstrapIndexAction(Request $request)
     {      
-        return $this->render('default/bootstrap.html.twig', [
+        return $this->render('index.html', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);
     }

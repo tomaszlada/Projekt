@@ -13,3 +13,4 @@ A Symfony project created on March 3, 2017, 8:47 pm.
 
 ##aktualizacja struktury bazy danych php bin/console doctrine:schema:update --force
 
+##czyszczenie cache php bin/console cache:clear --env=prod

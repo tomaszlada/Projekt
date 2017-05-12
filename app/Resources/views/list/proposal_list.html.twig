@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Lista wniosków
+{% endblock %}
+
+
+{% block body %}
+
+    <a href="/add_proposal" class="btn btn-success" role="button">Dodaj</a>
+    <table class="table table-bordered">
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>{{ knp_pagination_sortable(pagination, 'Id ', 'p.id') }}</th>
+            <th>ID Klienta</th>
+           {# 
+           <th{% if pagination.isSorted('p.ID Klienta') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'ID Klienta', 'p.client_id') }}</th>
+           #}
+            <th{% if pagination.isSorted('p.Wysykość pożyczki') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Wysykość pożyczki', 'p.loan_amount') }}</th>
+            <th{% if pagination.isSorted('p.Długość pożyczki') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Długość pożyczki', 'p.loan_duration') }}</th>
+            <th{% if pagination.isSorted('p.Telefon') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Telefon', 'p.phone_number') }}</th>
+            <th{% if pagination.isSorted('p.Email') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Email', 'p.email') }}</th>
+            <th{% if pagination.isSorted('p.Data dodania') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Data dodania', 'p.date_add') }}</th>
+            <th>Akcja</th>
+        </tr>
+
+        {# table body #}
+        {% for proposal_list in pagination %}
+            <tr {% if proposal_list.state == 1 %}class="success" {% else %}class="warning"{% endif %}>
+                <td>{{ proposal_list.id }}</td>
+                <td>{{ proposal_list.clientId }}</td>
+                <td>{{ proposal_list.loanAmount }}</td>
+                <td>{{ proposal_list.loanDuration }}</td>
+                <td>{{ proposal_list.phoneNumber }}</td>
+                <td>{{ proposal_list.email }}</td>
+                <td>{{ proposal_list.dateAdd.format('Y-m-d H:i:s') }}</td>
+                <td> <a href="/edit_proposal/{{ proposal_list.id }}" class="btn btn-warning" role="button">Edytuj</a>
+                    <a href="/delete_proposal/{{ proposal_list.id }}" class="btn btn-danger" role="button">Usuń</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+ {{ knp_pagination_render(pagination) }}
+ 
+{% endblock %}
