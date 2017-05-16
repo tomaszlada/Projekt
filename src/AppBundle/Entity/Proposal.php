@@ -25,9 +25,9 @@ class Proposal {
 
     /**
      * @var integer
-     * @ORM\Column(type="guid")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
@@ -63,8 +63,8 @@ class Proposal {
 
     /**
      *
-     * @var integer
-     * @ORM\Column(name="state", type="integer")
+     * @var boolean
+     * @ORM\Column(name="state", type="boolean")
      */
     private $state;
 

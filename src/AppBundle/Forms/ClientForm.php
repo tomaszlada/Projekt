@@ -31,7 +31,9 @@ class ClientForm extends AbstractType {
          */
         $builder->add('surname', TextType::class, array('label' => 'Nazwisko:'));
         $builder->add('pesel', IntegerType::class, array('label' => 'PESEL:'));
-        $builder->add('Zatwierdź', SubmitType::class);
+                $builder->add('Zatwierdź', SubmitType::class, array(
+            'attr' => array('class' => 'btn btn-success'),
+        ));
     }
 
 }

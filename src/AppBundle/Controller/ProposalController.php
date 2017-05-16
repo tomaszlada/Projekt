@@ -96,12 +96,10 @@ class ProposalController extends Controller {
      */
     public function editProposalAction(Request $request, $proposal_id) {
 
-
-        $em = $this->getDoctrine()->getEntityManager();
-        $proposal = $em->getRepository('AppBundle:Proposal')->find($proposal_id);
-        
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Proposal');
+        $proposal = $repository->findOneById($proposal_id);
         //var_dump($proposal);
-        
+
         $form = $this->createForm(ProposalForm::class, $proposal);
         $form->handleRequest($request);
 

@@ -6,8 +6,70 @@
 
 {% block body %}
 
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                {{ form_label(form.client_id) }}
+            </td>
+            <td>
+                {{ form_widget(form.client_id) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.loan_amount) }}
+            </td>
+            <td>
+                {{ form_widget(form.loan_amount) }}
+            </td>
+        </tr>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.loan_duration) }}
+        </td>
+        <td>
+            {{ form_widget(form.loan_duration) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.phone_number) }}
+        </td>
+        <td>
+            {{ form_widget(form.phone_number) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.email) }}
+        </td>
+        <td>
+            {{ form_widget(form.email) }}
+        </td>
+    </tr>
+        <tr>
+        <td>
+            {{ form_label(form.date_add) }}
+        </td>
+        <td>
+            {{ form_widget(form.date_add) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.state) }}
+        </td>
+        <td>
+            {{ form_widget(form.state) }}
+        </td>
+    </tr>
+</table>
+<table class="table table-bordered">
+    <tr>
+        {{ form_end(form) }}
+    </tr>
+</table>
 {% endblock %}

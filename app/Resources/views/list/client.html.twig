@@ -8,6 +8,39 @@
 
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                {{ form_label(form.name) }}
+            </td>
+            <td>
+                {{ form_widget(form.name) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.surname) }}
+            </td>
+            <td>
+                {{ form_widget(form.surname) }}
+            </td>
+        </tr>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.pesel) }}
+        </td>
+        <td>
+            {{ form_widget(form.pesel) }}
+        </td>
+    </tr>
+</table>
+<table class="table table-bordered">
+    <tr>
+        {{ form_end(form) }}
+       
+    </tr>
+</table>
+
+
 {% endblock %}
