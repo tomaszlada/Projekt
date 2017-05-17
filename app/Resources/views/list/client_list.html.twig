@@ -9,6 +9,7 @@
     
     
     <a href="/add_client" class="btn btn-success" role="button">Dodaj</a>
+    <a href="/print_client_list" class="btn btn-default" role="button">Wykaz Klientów</a>
     <table class="table table-bordered">
         <tr>
             {# sorting of properties based on query components #}
@@ -27,7 +28,8 @@
                 <td>{{ client_list.name }}</td>
                 <td>{{ client_list.pesel }}</td>
                 <td> <a href="/edit_client/{{ client_list.client_id }}" class="btn btn-warning" role="button">Edytuj</a>
-                    <a href="/delete_client/{{ client_list.client_id }}" class="btn btn-danger" role="button">Usuń</a></td>
+                    <a href="/delete_client/{{ client_list.client_id }}" class="btn btn-danger" role="button">Usuń</a>
+                    <a href="/print_client/{{ client_list.client_id }}" class="btn btn-default" role="button">Drukuj</a></td>
             </tr>
         {% endfor %}
     </table>

@@ -8,6 +8,7 @@
 {% block body %}
 
     <a href="/add_proposal" class="btn btn-success" role="button">Dodaj</a>
+     <a href="/print_proposal_list" class="btn btn-default" role="button">Drukuj Wnioski</a>
     <table class="table table-bordered">
         <tr>
             {# sorting of properties based on query components #}
@@ -35,7 +36,8 @@
                 <td>{{ proposal_list.email }}</td>
                 <td>{{ proposal_list.dateAdd.format('Y-m-d H:i:s') }}</td>
                 <td> <a href="/edit_proposal/{{ proposal_list.id }}" class="btn btn-warning" role="button">Edytuj</a>
-                    <a href="/delete_proposal/{{ proposal_list.id }}" class="btn btn-danger" role="button">Usuń</a></td>
+                    <a href="/delete_proposal/{{ proposal_list.id }}" class="btn btn-danger" role="button">Usuń</a>
+                    <a href="/print_proposal/{{ proposal_list.id }}" class="btn btn-default" role="button">Drukuj</a></td>
             </tr>
         {% endfor %}
     </table>
