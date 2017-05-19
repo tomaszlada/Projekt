@@ -10,31 +10,7 @@
         {% block javascripts %}
             <script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-            <script>
-                $(document).ready(function () {
-                    $('#link').click(function () {
-                        alert('asdasd');
-                        jQuery.ajax({
-                            url: "/proposal_list",
-                            method: 'GET',
-                            async: true,
-                            dataType: 'json'
-                        }).done(function (data) {
-                            console.log(data);
-                            if (data.status == 1) {
-                                alert("status poprawny " + data.info);
-                            } else {
-                                alert(data.info);
-                            }
-                        }).fail(function () {
-                            alert('Błąd systemu. Nie dodano produktu');
-                        });
-                        alert('poszlo');
-                    })
-                });
-            </script>
-
-        {% endblock %}
+           {% endblock %}
     </head>
     <body>
 

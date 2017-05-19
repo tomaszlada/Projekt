@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 
 class ProposalForm extends AbstractType {
 
@@ -23,16 +24,34 @@ class ProposalForm extends AbstractType {
 
 
         $builder
-        ->add('client_id', 'entity', array(
-                'class' => 'AppBundle\Entity\Client',
-                'label' => 'ID Klienta',
-                'multiple' => false,
-                'constraints' => array(
-                    new NotBlank(array('message' => 'Please choose atleast one student'))
-                )
-            ));
-        $builder->add('loan_amount', IntegerType::class, array('label' => 'Wysokość pożyczki:'));
-        $builder->add('loan_duration', IntegerType::class, array('label' => 'Długość pożyczki:'));
+                ->add('client_id', 'entity', array(
+                    'class' => 'AppBundle\Entity\Client',
+                    'label' => 'ID Klienta',
+                    'multiple' => false,
+                    'constraints' => array(
+                        new NotBlank(array('message' => 'Please choose atleast one student'))
+                    )
+        ));
+        //$builder->add('loan_amount', IntegerType::class, array('label' => 'Wysokość pożyczki:'));
+        $builder->add('loan_amount', RangeType::class, array(
+            'label' => 'Wysokość pożyczki:',
+            'attr' => array(
+                'min' => 0,
+                'max' => 10000,
+                'step' => 50,
+                'value' => 2000,
+            )
+        ));
+        //$builder->add('loan_duration', IntegerType::class, array('label' => 'Długość pożyczki:'));
+        $builder->add('loan_duration', RangeType::class, array(
+            'label' => 'Długość pożyczki:',
+            'attr' => array(
+                'min' => 1,
+                'max' => 24,
+                'step' => 1,
+                'value' => 1,
+            )
+        ));
         $builder->add('phone_number', IntegerType::class, array('label' => 'Numer telefonu'));
         $builder->add('email', TextType::class, array('label' => 'Email:'));
         $builder->add('date_add', DateTimeType::class, array('label' => 'Data:', 'data' => new \DateTime("now")));

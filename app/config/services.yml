@@ -39,3 +39,7 @@ services:
         calls:
             #- [ setUserManager, ["@fosuser.usermanager"]]
             - [ setTranslationDomain, [AppBundle]]
+    
+    app.face_detector:
+        class:     AppBundle\Controller\Face_Detector
+        arguments: []

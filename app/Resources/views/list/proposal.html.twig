@@ -1,4 +1,25 @@
 {% extends 'base.html.twig' %}
+{% block javascripts %}
+
+    <script>
+        onload = function () {
+            var $ = function (id) {
+                return document.getElementById(id);
+            };
+            $('proposal_form_loan_amount').oninput = function () {
+                $('amount').innerHTML = this.value;
+            };
+            $('proposal_form_loan_amount').oninput();
+
+
+            $('proposal_form_loan_duration').oninput = function () {
+                $('duration').innerHTML = this.value;
+            };
+            $('proposal_form_loan_duration').oninput();
+
+        };
+    </script>
+{% endblock %}
 
 {% block title %}
     Lista Wniosków
@@ -22,7 +43,7 @@
                 {{ form_label(form.loan_amount) }}
             </td>
             <td>
-                {{ form_widget(form.loan_amount) }}
+                {{ form_widget(form.loan_amount) }} <span id="amount"></span>
             </td>
         </tr>
     </tr>
@@ -31,7 +52,7 @@
             {{ form_label(form.loan_duration) }}
         </td>
         <td>
-            {{ form_widget(form.loan_duration) }}
+            {{ form_widget(form.loan_duration) }} <span id="duration"></span>
         </td>
     </tr>
     <tr>
@@ -50,7 +71,7 @@
             {{ form_widget(form.email) }}
         </td>
     </tr>
-        <tr>
+    <tr>
         <td>
             {{ form_label(form.date_add) }}
         </td>
@@ -72,4 +93,6 @@
         {{ form_end(form) }}
     </tr>
 </table>
+
+
 {% endblock %}
